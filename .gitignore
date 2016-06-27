@@ -1,0 +1,11 @@
+/third_party/boost
+/third_party/rapidjson
+/Intermediate
+/Win32-Debug
+/Win32-Release
+/x64-Debug
+/x64-Release
+/.vs
+/*.user
+/rapidjson-ext.VC.VC.opendb
+/rapidjson-ext.VC.db
