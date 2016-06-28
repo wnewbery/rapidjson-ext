@@ -42,6 +42,45 @@ public:
     virtual std::unique_ptr<ReaderFrame> key(const std::string &str) { throw ReaderError("Unexpected key"); }
 };
 
+class ReaderDiscard : public ReaderFrame
+{
+public:
+    ReaderDiscard() : in_array(false) {}
+    virtual bool is_array()const { return in_array; }
+
+    virtual void value_null() {}
+    virtual void value_bool(bool b) {}
+    virtual void value_int(int i) {}
+    virtual void value_uint(unsigned i) {}
+    virtual void value_int64(int64_t i) {}
+    virtual void value_uint64(uint64_t i) {}
+    virtual void value_double(double d) {}
+    virtual void value_string(const std::string &str) {}
+    virtual std::unique_ptr<ReaderFrame> start_array()
+    {
+        if (in_array) return std::make_unique<ReaderDiscard>();
+        in_array = true;
+        return nullptr;
+    }
+    virtual void end_array()
+    {
+        in_array = false;
+    }
+    virtual std::unique_ptr<ReaderFrame> start_object()
+    {
+        return std::make_unique<ReaderDiscard>();
+    }
+    virtual void end_object()
+    {
+    }
+    virtual std::unique_ptr<ReaderFrame> key(const std::string &str)
+    {
+        return std::make_unique<ReaderDiscard>();
+    }
+
+    bool in_array;
+};
+
 class ReaderBool : public ReaderFrame
 {
 public:
