@@ -15,6 +15,9 @@
     <ClInclude Include="include\rapidjson-ext\Reader.hpp">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="include\rapidjson-ext\Detail.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Writer.cpp">

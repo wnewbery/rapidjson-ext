@@ -1,4 +1,5 @@
 #pragma once
+#include "Detail.hpp"
 #include <string>
 
 /**JSON string writer.
@@ -66,38 +67,6 @@ private:
     Impl *impl;
 };
 
-namespace rapidjson_ext_detail
-{
-    // Enable argument dependent lookup
-    using std::begin;
-    using std::end;
-
-    /**Implementation for is_iterable*/
-    template<class T>
-    auto is_iterable_impl(int) -> decltype(
-        begin(std::declval<T&>()) == end(std::declval<T&>()),
-        *begin(std::declval<T&>()),
-        ++begin(std::declval<T&>()),
-        std::true_type{}
-        );
-    /**Not iterable. ... is less specific than (int)*/
-    template<class T>
-    std::false_type is_iterable_impl(...);
-
-    /**Consider an object iterable, if the following are valid:
-     *
-     *   - iterator = begin(T())
-     *   - iterator = end(T())
-     *   - iterator == iterator
-     *   - *iterator
-     *   - ++iterator
-     *
-     * The decltype will only be valid, resolving to std::true_type if the listed operations
-     * are valid.
-     */
-    template <class T> struct is_iterable : public decltype(is_iterable_impl<T>(0)) {};
-}
-
 // Basic type overloads
 inline void write_json(JsonWriter &writer, const char *str)
 {
@@ -139,7 +108,7 @@ template<class T> void write_json(JsonWriter &writer, T *val)
 /**Basic template JSON writer. This default template converts the value to a string
  * via to_string, then writes that as a JSON string.
  */
-template<class T, typename std::enable_if<!rapidjson_ext_detail::is_iterable<T>::value>::type * = nullptr>
+template<class T, typename std::enable_if<rapidjson_ext_detail::has_to_string<T>::value>::type * = nullptr>
 void write_json(JsonWriter &writer, const T &val)
 {
     using std::to_string;
