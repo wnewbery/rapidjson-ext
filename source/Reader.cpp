@@ -10,6 +10,11 @@ public:
 
     ~Reader() {}
 
+    bool RawNumber(const char* str, SizeType length, bool copy)
+    {
+        std::terminate();
+    }
+
     bool Null()
     {
         stack.top()->value_null();
