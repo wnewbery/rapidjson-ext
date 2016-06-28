@@ -12,9 +12,15 @@
     <ClInclude Include="include\rapidjson-ext\Writer.hpp">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="include\rapidjson-ext\Reader.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Writer.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Reader.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>

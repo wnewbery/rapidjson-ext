@@ -19,9 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\rapidjson-ext\Reader.hpp" />
     <ClInclude Include="include\rapidjson-ext\Writer.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\Reader.cpp" />
     <ClCompile Include="source\Writer.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
